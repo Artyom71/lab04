@@ -130,6 +130,62 @@ $ gistup -m "lab${LAB_NUMBER}"
 * используйте [TravisCI](https://travis-ci.com/) для сборки на операционной системе **Linux** с использованием компиляторов **gcc** и **clang**;
 * используйте [AppVeyor](https://www.appveyor.com/) для сборки на операционной системе **Windows**.
 
+
+## Файл travis.yml:
+```ShellSession
+# Указываем используемый язык программирования
+language: cpp
+# Указываем используемые компиляторы
+compiler:
+  - clang
+  - gcc
+# Указываем используемую операционную систему
+os:
+ - linux
+# Указываем секция, где происходит загрузка и установка софта
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
+    packages:
+      - g++-7
+      - clang-3.6
+
+# Скрипт
+script:
+# Выбор и создание системы сборки.
+- cmake CMakeLists.txt
+# Сборка
+- cmake --build .
+```
+
+
+## Файл appveyor.yml:
+```ShellSession
+# Указываем, где будет происходить сборка
+image: Visual Studio 2017
+# Указываем секцию инициализации
+init:
+  - git config --global core.autocrlf input
+# Указываем папку, затем в нее копируем проект 
+clone_folder: c:\projects\my-prj
+# Указываем разрядность процессора, на котором будет происходить сборка 
+platform:
+  - x64
+# Указваем версию сборки
+configuration:
+  - Debug
+# Указываем условий среды
+environment:
+  matrix:
+    - TOOLCHAIN: msvc15
+# Cкрипт
+build_script:
+- cmake CMakeLists.txt
+- cmake --build .
+```
+
 ## Links
 
 - [Travis Client](https://github.com/travis-ci/travis.rb)
