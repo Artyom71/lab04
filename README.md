@@ -132,7 +132,7 @@ $ gistup -m "lab${LAB_NUMBER}"
 
 
 ## Файл travis.yml:
-```ShellSession
+```
 # Указываем используемый язык программирования
 language: cpp
 # Указываем используемые компиляторы
@@ -162,7 +162,7 @@ script:
 
 
 ## Файл appveyor.yml:
-```ShellSession
+```
 # Указываем, где будет происходить сборка
 image: Visual Studio 2017
 # Указываем секцию инициализации
